@@ -1,7 +1,7 @@
 # Стек
  - PHP - 8.3.13-fpm
  - MariaDb - 11.5.2
- - Nginx - 1.27.2-alpine
+ - Nginx - 1.27.2
 
  # Swagger
  - php artisan l5-swagger:generate (либо storage/api-docs/api-docs.json)
@@ -11,6 +11,11 @@
 - Конфиги и прочее лежит в папке docker.
 
 # Сборка проекта
+- Создаем папку www
+- рядом распологаем содержимое папки docker.
+- Клонируем проект в папку www.
+- Запускаем сборку через docker compose up -d
+- Настраиваем файл env (подключаем базу данных, данные для которой можно взять в docker-compose.yml в сервисе db)
 - composer install
 - php artisan key:generate
 - php artisan migrate
