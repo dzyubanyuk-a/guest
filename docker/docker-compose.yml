@@ -1,0 +1,42 @@
+services:
+  web:
+    image: nginx:1.27.2-alpine
+    container_name: web
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./www:/var/www
+    restart: unless-stopped
+    networks:
+      - my_network
+
+  app:
+    build:
+      context: .
+      dockerfile: ./php/Dockerfile
+    container_name: app
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./www:/var/www
+      - ./php/php.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - my_network
+
+  db:
+    image: mariadb:11.5.2
+    container_name: db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: database
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    volumes:
+      - ./mariadb:/var/lib/mysql
+    restart: unless-stopped
+    networks:
+      - my_network
+
+networks:
+  my_network:

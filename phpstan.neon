@@ -1,0 +1,7 @@
+parameters:
+    paths:
+        - app
+        - database
+    level: 6
+    ignoreErrors:
+    excludePaths:
